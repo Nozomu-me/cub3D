@@ -17,6 +17,7 @@ AR = ar rcs
 LIBFT = libft
 NAMELIBFT = libft.a
 EXE = cub3D
+GNL = get_next_line
 
 SRCLIB =  ft_atoi.c \
 		  ft_bzero.c \
@@ -53,35 +54,35 @@ SRCLIB =  ft_atoi.c \
 		  ft_tolower.c \
 		  ft_toupper.c
 
-SRC =  get_next_line.c \
-	   config_file_utils.c \
-	   config_file.c \
-	   free.c \
-	   get_player_data.c \
-	   get_sprite_data.c \
-	   map_parsing_utils.c \
-	   parsing_path.c \
-	   parsing_resol.c \
-	   utils.c \
-	   load_textures.c \
-	   rotate.c \
-	   move_left_right.c \
-	   move_up_down.c \
-	   key.c \
-	   draw_floor_ceil.c \
-	   draw_sprite.c \
-	   sub_draw_sprite.c \
-	   draw_walls.c \
-	   raycasting_check.c \
-	   raycasting.c \
-	   parsing_map.c \
-	   parsing_colors.c \
-	   get_colors.c \
-	   sub_parsing_map.c  \
-	   save.c
+SRCGNL = get_next_line.c \
 
-SRCB = get_next_line.c \
-	   config_file_utils_bonus.c \
+SRC = config_file_utils.c \
+	  config_file.c \
+	  free.c \
+	  get_player_data.c \
+	  get_sprite_data.c \
+	  map_parsing_utils.c \
+	  parsing_path.c \
+	  parsing_resol.c \
+	  utils.c \
+	  load_textures.c \
+	  rotate.c \
+	  move_left_right.c \
+	  move_up_down.c \
+	  key.c \
+	  draw_floor_ceil.c \
+	  draw_sprite.c \
+	  sub_draw_sprite.c \
+	  draw_walls.c \
+	  raycasting_check.c \
+	  raycasting.c \
+	  parsing_map.c \
+	  parsing_colors.c \
+	  get_colors.c \
+	  sub_parsing_map.c  \
+	  save.c
+
+SRCB = config_file_utils_bonus.c \
 	   config_file_bonus.c \
 	   free_bonus.c \
 	   get_player_data_bonus.c \
@@ -111,15 +112,16 @@ FRAME =  -lmlx -framework OpenGl -framework AppKit
 OBJ = $(SRC:.c=.o)
 OBJB = $(SRCB:.c=.o)
 OBJLIB = $(addprefix $(LIBFT)/,$(SRCLIB:.c=.o))
+OBJGNL = $(addprefix $(GNL)/,$(SRCLIB:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(OBJLIB)
-	$(AR) $(NAME) $(OBJ) $(OBJLIB)
+$(NAME): $(OBJ) $(OBJLIB) $(OBJGNL)
+	$(AR) $(NAME) $(OBJ) $(OBJLIB) $(OBJGNL)
 	$(CC) $(FLAG) $(FRAME) $(CAST) $(NAME) -o $(EXE)
 
-bonus: $(OBJB) $(OBJLIB)
-	$(AR) $(NAME) $(OBJB) $(OBJLIB)
+bonus: $(OBJB) $(OBJLIB) $(OBJGNL)
+	$(AR) $(NAME) $(OBJB) $(OBJLIB) $(OBJGNL)
 	$(CC) $(FLAG) $(FRAME) $(CASTB) $(NAME) -o $(EXE)
 
 %.o : %.c
@@ -129,6 +131,7 @@ clean:
 	rm -f $(OBJ)
 	rm -f $(OBJLIB)
 	rm -f $(OBJB)
+	rm -f $(OBJGNL)
 	rm -f raycast_main.o
 	rm -f raycast_main_bonus.o
 fclean: clean
