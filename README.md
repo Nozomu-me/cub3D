@@ -1,4 +1,4 @@
-# cub3D_
+# cub3D
 
 
 This project is inspired by the world-famous eponymous 90’s game, which
